@@ -39,13 +39,17 @@ const HomeLandingPage = () => {
   ];
   
   const sendEmail =(e)=>{
-    emailjs.sendForm('your_service_id', 'your_template_id', e.target, 'your_user_id')
+    e.preventDefault();
+    emailjs.sendForm( import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      e.target,
+      import.meta.env.VITE_EMAILJS_USER_ID )
     .then((result) => {
       console.log(result.text);
       alert('Message sent!');
     }, (error) => {
       console.log(error.text);
-      alert('Failed to send message.');
+      alert('Failed to send message.'+ error);
     });
     e.target.reset();
   }
@@ -76,7 +80,6 @@ const HomeLandingPage = () => {
       );
       
         setUser(response.data);  
-        console.log(response.data);
         } catch (err) {
         console.error(err);
       }
@@ -187,12 +190,14 @@ const HomeLandingPage = () => {
         <div className=" py-5 px-10  md:px-18 md:w-1/2">
           <div className="bg-white rounded-xl py-8 shadow-2xl px-10">
           <h2 className="text-3xl font-semibold text-purple-800 mb-6">Contact Us</h2>
+
           <form className="space-y-4 md:max-w-xl" onSubmit={sendEmail}>
-            <input type="text" placeholder="Your Name" className="w-full p-2 rounded-sm border border-gray-300" required />
-            <input type="email" placeholder="Your Email" className="w-full p-3 rounded border border-gray-300" required />
-            <textarea placeholder="Your Message" className="w-full p-3 rounded border border-gray-300" rows="5" required></textarea>
+            <input type="text" placeholder="Your Name" className="w-full p-2 rounded-sm border border-gray-300" required name="name" />
+            <input type="email" placeholder="Your Email" className="w-full p-3 rounded border border-gray-300" required name="email"/>
+            <textarea placeholder="Your Message" className="w-full p-3 rounded border border-gray-300" rows="5" required name="message"></textarea>
             <button type="submit" className="bg-purple-700 text-white px-4 py-2 rounded hover:bg-purple-800 transition">Send Message</button>
           </form>
+
           </div>
         </div>
         <div className="w-1/2  py-9 justify-items-start hidden md:flex ">

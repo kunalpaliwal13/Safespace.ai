@@ -16,10 +16,9 @@ export default function MoodJournal() {
   const [userId, setUserId] = useState("");
 
   const handleSubmit = async () => {
-    console.log(date);
+
     if (note.length >= 5 && date && selectedMood !== null) {
       
-      console.log("here")
       const newEntry = {
         date,
         mood: moods[selectedMood],
@@ -27,13 +26,11 @@ export default function MoodJournal() {
         note,
         userId
       };
-      console.log("Entry being sent:", newEntry);
 
       setEntries([newEntry, ...entries]);
       setNote("");
       setSelectedMood(null);
       try{
-        console.log("sent");
         const response = await fetch('http://localhost:5000/api/journal', {
           method: 'POST',
           headers: {
@@ -92,7 +89,6 @@ export default function MoodJournal() {
         );
           setUserId(response.data._id);
           setUser(response.data);  
-          // console.log(response.data);
           } catch (err) {
           console.error(err);
         }
@@ -106,10 +102,8 @@ export default function MoodJournal() {
       if (!userId) return;
       const fetchEntries = async () => {
         try {
-          console.log(userId);
           const response = await fetch(`http://localhost:5000/api/journal/${userId}`);
           const data = await response.json();
-          console.log(data);
           if (response.ok) {
             setEntries(data); 
           } else {
@@ -133,7 +127,6 @@ export default function MoodJournal() {
               userId: userId,
               timestamp: timestamp,
             });
-            console.log("posted");
           } catch (e) {
             console.error("Notification error:", e);
           }}

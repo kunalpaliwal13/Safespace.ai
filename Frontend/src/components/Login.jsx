@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AuthPage() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", password: "", phone: "" });
   const [activeTab, setActiveTab] = useState("login");
 
   const handleChange = (e) => {
@@ -35,6 +35,7 @@ export default function AuthPage() {
         name: formData.name,
         email: formData.email,
         password: formData.password,
+        phone: formData.phone
       });
       alert(res.data.message);
       // Optionally switch to login tab or clear form
@@ -144,6 +145,15 @@ export default function AuthPage() {
                 name="email"
                 placeholder="Email"
                 value={formData.email}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
+                required
+              />
+              <input
+                type="phone"
+                name="phone"
+                placeholder="Phone No."
+                value={formData.phone}
                 onChange={handleChange}
                 className="w-full p-2 border border-gray-300 rounded-md text-gray-800"
                 required

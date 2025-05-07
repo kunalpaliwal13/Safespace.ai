@@ -25,7 +25,6 @@ const Header=()=>{
       );
       
         setUser(response.data);  
-        console.log(response.data);
         } catch (err) {
         console.error(err);
       }
@@ -44,7 +43,6 @@ const Header=()=>{
             headers: { Authorization: `Bearer ${token}` },
           });
           setNotifContent(res.data);
-          console.log(res.data);
         } catch (err) {
           console.error('Failed to load notifications:', err);
         }

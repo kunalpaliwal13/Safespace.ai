@@ -109,7 +109,6 @@ const ExercisesResourcesPage = () => {
       );
       
         setUser(response.data);  
-        console.log(response.data);
         } catch (err) {
         console.error(err);
       }

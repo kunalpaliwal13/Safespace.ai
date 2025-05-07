@@ -29,9 +29,9 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 //register
 
 app.post("/api/register", async(req, res)=>{
-  const{name,email,password}= req.body;
+  const{name,email,password, phone}= req.body;
   const hashed = await bcrypt.hash(password, 10);
-  const newUser = new User({name, email, password: hashed});
+  const newUser = new User({name, email, password: hashed, phone});
   await newUser.save();
   res.status(201).json({message: "User created"});
 })
