@@ -41,6 +41,12 @@ cd Safespace.ai
    MONGO_URI=""
    JWT_SECRET=
 ```
+```
+   Frontend/.env:
+   VITE_EMAILJS_USER_ID=
+   VITE_EMAILJS_SERVICE_ID=
+   VITE_EMAILJS_TEMPLATE_ID=
+```
 
 3. Start the ML Server (Python)
 
