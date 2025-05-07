@@ -98,6 +98,7 @@ app.post('/notify-admin', async (req, res) => {
     name: user.name,
     email: user.email,
     tag: 'Suicidal',
+    phone: user.phone,
     text: message,
     time: timestamp
   };

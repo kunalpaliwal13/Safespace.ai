@@ -81,12 +81,14 @@ def chat():
     user_id = data.get('userId', 'unknown')  
     print("USER TEXT SENTIMENT", predict_emotion(user_message))
     if(predict_emotion(user_message)=='suicide'):
+        print("suicide")
         try:
             timestamp = datetime.datetime.utcnow().isoformat() + "Z"
             requests.post("http://localhost:5000/notify-admin", json={
                 "message": user_message,
                 "userId": user_id,
-                "timestamp": timestamp})
+                "timestamp": timestamp,
+                })
             print("posted")
         except Exception as e:
             print("Notification error:", e)
