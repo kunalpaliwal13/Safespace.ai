@@ -113,7 +113,60 @@ app.post('/notify-admin', async (req, res) => {
   console.log(`🔔 Notification: User ${userId} may need help. Message: ${message}`);
 }catch (err) {
   console.error('Notification error:', err);
-  res.status(500).json({ error: 'Server error' });
+  res.status(500).json({ error: 'Server error' }); 
 }
 
+});
+
+
+app.post('/api/journal', async (req, res) => {
+  try {
+    const { date, mood, emoji, note, userId } = req.body;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    } 
+
+    const journalEntry = {
+      date,
+      mood,
+      emoji,
+      note,
+      userId
+    };
+
+    if (!note || typeof note !== 'string') {
+      return res.status(400).json({ error: 'Invalid note' });
+    }
+    
+
+
+    user.journal.push(journalEntry);
+    await user.save();
+
+    return res.status(200).json({ message: 'Journal entry saved successfully' });
+  } catch (error) {
+    console.error('Error saving journal entry:', error);
+    return res.status(500).json({ message: 'An error occurred while saving your journal entry' });
+  }
+});
+
+
+
+app.get('/api/journal/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Return the journal entries
+    res.status(200).json(user.journal);
+  } catch (error) {
+    console.error('Error fetching journal entries:', error);
+    res.status(500).json({ message: 'An error occurred while fetching your journal entries' });
+  }
 });

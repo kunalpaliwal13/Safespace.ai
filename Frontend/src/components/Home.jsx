@@ -13,7 +13,7 @@ import axios from 'axios';
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link as ScrollLink } from 'react-scroll';
-
+import emailjs from 'emailjs-com';
 
 
 
@@ -38,7 +38,17 @@ const HomeLandingPage = () => {
     }
   ];
   
-
+  const sendEmail =(e)=>{
+    emailjs.sendForm('your_service_id', 'your_template_id', e.target, 'your_user_id')
+    .then((result) => {
+      console.log(result.text);
+      alert('Message sent!');
+    }, (error) => {
+      console.log(error.text);
+      alert('Failed to send message.');
+    });
+    e.target.reset();
+  }
   
   const getIcon =(icon)=>{
     switch(icon){
@@ -82,19 +92,9 @@ const HomeLandingPage = () => {
     window.location.href = "/login";
   }
 
-  
-  
-
-
-
-  
-
-  
-
-  
 
   return (
-    <div className="poppins text-gray-800 bg-[#f9f9fb] w-screen m-0 p-0 overflow-x-hidden scrollbar-thin">
+    <div className="poppins text-gray-800 bg-white w-screen m-0 p-0 overflow-x-hidden scrollbar-thin">
       {/* Header */}
       <Header/>
       
@@ -187,7 +187,7 @@ const HomeLandingPage = () => {
         <div className=" py-5 px-10  md:px-18 md:w-1/2">
           <div className="bg-white rounded-xl py-8 shadow-2xl px-10">
           <h2 className="text-3xl font-semibold text-purple-800 mb-6">Contact Us</h2>
-          <form className="space-y-4 md:max-w-xl">
+          <form className="space-y-4 md:max-w-xl" onSubmit={sendEmail}>
             <input type="text" placeholder="Your Name" className="w-full p-2 rounded-sm border border-gray-300" required />
             <input type="email" placeholder="Your Email" className="w-full p-3 rounded border border-gray-300" required />
             <textarea placeholder="Your Message" className="w-full p-3 rounded border border-gray-300" rows="5" required></textarea>

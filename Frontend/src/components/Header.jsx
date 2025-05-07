@@ -117,7 +117,7 @@ const Header=()=>{
 
 
           <a href="/" className=" text-base text-black hover:text-purple-600 z-50" style = {{textDecoration: "none"}}>Home</a>
-          {/* <a href="/journal" className="text-black text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Journal</a> */}
+          <a href={User? "/journal": "/login"} className="text-black text-base hover:text-purple-600 z-50" style = {{textDecoration: "none"}}>Journal</a>
           <a href="/exercises" className="text-black  text-base hover:text-purple-600 z-50" style = {{textDecoration: "none"}}>Exercises</a>
           {isHome ? (
           <ScrollLink to="contact" smooth={true} duration={500} offset={-70} className="text-black text-base hover:text-purple-600 cursor-pointer">Contact Us</ScrollLink>
@@ -136,7 +136,7 @@ const Header=()=>{
 
 
       {/* -------------------------------------------------------------------------------------------------------------------- */}
-      <div className="text-2xl font-bold block md:hidden text-purple-800">Safe<span className="text-purple-950">Space.ai</span></div>
+      <div className="text-2xl bg-white border-0 font-bold block md:hidden text-purple-800">Safe<span className="text-purple-950">Space.ai</span></div>
         <div className="hidden md:flex space-x-6 text-sm font-medium mr-4">
         </div>
       <div className="flex bg-white justify-around text-sm md:hidden">
@@ -172,7 +172,7 @@ const Header=()=>{
               </div>
             </div>
           </div>): null}
-      {/* <a href="/journal" className="text-black text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Journal</a> */}
+      <a href={User? "/journal": "/login"} className="text-black text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Journal</a>
       <a href="exercises" className="text-black  text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Exercises</a>
       {
       User ? 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { PaperAirplaneIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 import { IoIosSend } from "react-icons/io";
 import axios from 'axios';
-
+import Header from './Header';
 
 
 const ChatbotPage = () => {
@@ -80,24 +80,28 @@ const ChatbotPage = () => {
   };
 
   return (
-    <div className="md:px-20 bg-transparent rounded-2xl flex justify-center min-w-screen min-h-screen items-center bg-[url('/images/bg.jpg')]  ">
-      
-    <div className="flex flex-col font-inter  md:w-5xl min-h-[80vh] md:min-h-[60vh] shadow-2xl rounded-2xl shrink-0">
+    <>
+    <div className="bg-white w-screen">
+      <Header/>
+    </div>
+    <div className="md:px-20 bg-transparent flex md:flex-col justify-center min-w-screen min-h-screen items-center bg-[url('/images/bg.jpg')] ">
+    
+    <div className="flex flex-col font-inter  md:w-5xl h-[60vh] shadow-2xl rounded-2xl shrink-0">
       {/* Header */}
-      <div className="flex items-center gap-3 px-6 py-4 bg-white text-white shadow-md rounded-t-xl">
+      <div className="flex items-center gap-3 px-6 py-4 bg-white text-white shadow-md rounded-t-xl shrink-0">
         <img src = "/images/therapist.jpg" className="h-10 w-10 rounded-full"></img>
         <h1 className="text-lg font-semibold text-black">Safespace AI Therapist</h1>
         <span className="ml-auto text-sm bg-green-500 px-2 py-1 rounded-full">Online</span>
       </div>
 
       {/* Chat Messages */}
-      <div className="flex-1 overflow-y-auto px-6 py-4 bg-[#efefef] ">
+      <div className="flex-1 overflow-y-auto px-6 py-4 bg-[#efefef]">
         {messages.map((msg, i) => {
           const isUser = msg.sender === "user";
           return (
             <div key={i} className={`flex ${isUser ? "justify-end" : "justify-start"} mb-3`}>
               <div
-                className={`max-w-xs md:max-w-md px-4 py-2 rounded-lg shadow-md text-sm relative ${
+                className={`max-w-xs md:max-w-md px-4 py-2 rounded-lg shadow-md text-sm relative shrink-0 ${
                   isUser ? "bg-blue-100 text-right text-black" : "bg-white text-black text-left"
                 }`}
               >
@@ -113,7 +117,7 @@ const ChatbotPage = () => {
       </div>
 
       {/* Input Area */}
-      <div className="px-6 py-4  bg-white flex items-center gap-2 rounded-b-2xl shrink-0">
+      <div className="px-6 py-4  bg-white flex items-center gap-2 rounded-b-2xl">
         <input
           type="text"
           placeholder="Type your message..."
@@ -132,6 +136,7 @@ const ChatbotPage = () => {
       </div>
     </div>
     </div>
+    </>
   );
 };
 
