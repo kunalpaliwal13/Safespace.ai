@@ -128,19 +128,7 @@ const ExercisesResourcesPage = () => {
   return (
     <div className="flex flex-col bg-white text-gray-800 w-screen">
       <Header />
-      <div className="flex bg-white justify-around text-sm md:hidden">
-          <a href="/" className=" text-base text-black hover:text-purple-600" style = {{textDecoration: "none"}}>Home</a>
-          {/* <a href="/journal" className="text-black text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Journal</a> */}
-          <a href="exercises" className="text-black  text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Exercises</a>
-          {
-          User ? 
-            
-            <a className="text-black text-base hover:text-purple-600" style={{ textDecoration: "none" }} onClick={HandleLogout}>Logout</a>
-
-            :   
-            <a href="/login" className="text-purple-800 text-base hover:text-purple-600" style={{ textDecoration: "none" }}>Login</a>
-          }
-      </div>
+      
 
       
     

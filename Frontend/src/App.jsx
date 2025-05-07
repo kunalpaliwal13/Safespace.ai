@@ -1,7 +1,7 @@
 import './App.css';
 import HomeLandingPage from './components/Home';
 import ChatbotPage from './components/ChatbotPage'; 
-import Journal from './components/Jounral';
+import Journal from './components/Journal';
 import AuthPage from './components/Login';
 import ExercisesResourcesPage from './components/Exercises';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';

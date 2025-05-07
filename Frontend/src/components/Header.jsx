@@ -2,12 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import { FaBell } from "react-icons/fa";
 import { IoAlertCircleOutline } from "react-icons/io5";
-
+import { Link as ScrollLink } from 'react-scroll';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header=()=>{
     const [User, setUser] = useState(null);
     const [notifs, setNotifs]= useState(false);
     const [notifContent, setNotifContent] = useState([]);
+    const location = useLocation();
+    const isHome = location.pathname === '/';
 
     //fetch users
   useEffect(() => {
@@ -76,7 +79,8 @@ const Header=()=>{
       }, []);
 
     return (
-    <header className="sticky top-0 z-50 bg-white flex justify-between items-center px-20 py-4">
+      <>
+    <header className="sticky top-0 z-50 bg-white md:flex justify-between items-center px-20 py-4 hidden">
         <div className="text-2xl font-bold text-purple-800">Safe<span className="text-purple-950">Space.ai</span></div>
         <nav className="hidden md:flex space-x-6 text-sm font-medium mr-4">
 
@@ -112,10 +116,12 @@ const Header=()=>{
           </div>): null}
 
 
-          <a href="/" className=" text-base text-black hover:text-purple-600" style = {{textDecoration: "none"}}>Home</a>
+          <a href="/" className=" text-base text-black hover:text-purple-600 z-50" style = {{textDecoration: "none"}}>Home</a>
           {/* <a href="/journal" className="text-black text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Journal</a> */}
-          <a href="exercises" className="text-black  text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Exercises</a>
-          <a href="/#contact" className="text-black  text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Contact Us</a>
+          <a href="/exercises" className="text-black  text-base hover:text-purple-600 z-50" style = {{textDecoration: "none"}}>Exercises</a>
+          {isHome ? (
+          <ScrollLink to="contact" smooth={true} duration={500} offset={-70} className="text-black text-base hover:text-purple-600 cursor-pointer">Contact Us</ScrollLink>
+          ) : ( <Link to="/#contact" className="text-black text-base hover:text-purple-600">Contact Us</Link>)}
           {
           User ? 
             <>
@@ -127,6 +133,57 @@ const Header=()=>{
           }
         </nav>
       </header>
+
+
+      {/* -------------------------------------------------------------------------------------------------------------------- */}
+      <div className="text-2xl font-bold block md:hidden text-purple-800">Safe<span className="text-purple-950">Space.ai</span></div>
+        <div className="hidden md:flex space-x-6 text-sm font-medium mr-4">
+        </div>
+      <div className="flex bg-white justify-around text-sm md:hidden">
+      
+      <a href="/" className=" text-base text-black hover:text-purple-600" style = {{textDecoration: "none"}}>Home</a>
+      {  User && User.role == "admin" ? (<div className="flex justify-center items-center">
+            <div className= " w-100 flex flex-col items-center absolute " >
+              <FaBell className= "text-xl text-black hover:text-purple-600 z-50 mr-10" onClick={showNotifs} />
+              <div className= {`absolute z-40 w-80 rounded-2xl md:ml-0 ml-10 h-70 mt-8 bg-white border shadow-2xl border-gray-300 p-3 flex flex-col gap-2 overflow-y-auto ${notifs? 'visible' : 'hidden'}`} ref={notifRef}>
+                
+             {notifContent.slice().reverse().map((notif, index) => {
+                let parsedNotif;
+              try {
+                parsedNotif = JSON.parse(notif.replace(/'/g, '"'));
+              } catch (e) {
+                console.error('Failed to parse notif:', notif, e);
+                return null;
+              }
+
+                  return (
+                    <div key={index} className="bg-white border border-gray-200 rounded-lg w-[100%] min-h-20 gap-0 shrink-0 flex text-left text-black p-2">
+                      <IoAlertCircleOutline className="w-8 h-8 text-red-500 shrink-0" />
+                      <div className="ml-3">
+                        <div>
+                        <div className="m-0 text-red-500">User {parsedNotif.name} might need help.</div>
+                        </div>
+                        Contact them urgently at <a className="text-green-600 underline" href={`tel:${parsedNotif.phone}`}>{parsedNotif.phone}</a> or <a className= "text-blue-600 underline" href = {`mailto:${parsedNotif.email}`}>{parsedNotif.email}</a>
+                        <div className="text-gray-500 text-[10px] mt-2 "> {new Date(parsedNotif.time).toLocaleString()}</div>
+                      </div>
+                    </div>
+                    );
+              })}
+              </div>
+            </div>
+          </div>): null}
+      {/* <a href="/journal" className="text-black text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Journal</a> */}
+      <a href="exercises" className="text-black  text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Exercises</a>
+      {
+      User ? 
+        
+        <a className="text-black text-base hover:text-purple-600" style={{ textDecoration: "none" }} onClick={HandleLogout}>Logout</a>
+
+        :   
+        <a href="/login" className="text-purple-800 text-base hover:text-purple-600" style={{ textDecoration: "none" }}>Login</a>
+      }
+  </div>
+  </>
 )};
 
 

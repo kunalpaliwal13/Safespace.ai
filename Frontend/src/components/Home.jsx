@@ -11,7 +11,8 @@ import { PiGearSixFill } from "react-icons/pi";
 import { FaTools } from "react-icons/fa";
 import axios from 'axios';
 import Header from "./Header";
-import Footer from "./Footer"
+import Footer from "./Footer";
+import { Link as ScrollLink } from 'react-scroll';
 
 
 
@@ -96,19 +97,7 @@ const HomeLandingPage = () => {
     <div className="poppins text-gray-800 bg-[#f9f9fb] w-screen m-0 p-0 overflow-x-hidden scrollbar-thin">
       {/* Header */}
       <Header/>
-      <div className="flex bg-white justify-around text-sm md:hidden">
-          <a href="/" className=" text-base text-black hover:text-purple-600" style = {{textDecoration: "none"}}>Home</a>
-          {/* <a href="/journal" className="text-black text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Journal</a> */}
-          <a href="exercises" className="text-black  text-base hover:text-purple-600" style = {{textDecoration: "none"}}>Exercises</a>
-          {
-          User ? 
-            
-            <a className="text-black text-base hover:text-purple-600" style={{ textDecoration: "none" }} onClick={HandleLogout}>Logout</a>
-
-            :   
-            <a href="/login" className="text-purple-800 text-base hover:text-purple-600" style={{ textDecoration: "none" }}>Login</a>
-          }
-      </div>
+      
 
       {/* Hero Section */}
       <section id="home" className="flex flex-col md:flex-row items-center bg-[url('/images/bg.jpg')] w-screen gap-45 h-[50vh] md:h-[90vh] justify-center">
@@ -119,9 +108,9 @@ const HomeLandingPage = () => {
           <button className="bg-gradient-to-r from-[#8c4dcf] to-[#c742d3] text-white px-6 py-3 rounded-full  transition hover:from-[#a10eaf] hover:to-[#762ac7]">
             <Link to= {User? "/chatbot": "/login"}> Talk to our AI therapist </Link>
           </button>
-          <a className=" text-black px-6 py-3  md:border border-gray-300 bg-transparent md:bg-[#ffffffac] w-50 rounded-full transition hover:bg-gray-200" href="/#services">
+          <ScrollLink to="services" smooth={true} duration={500} offset={-70} className=" text-black px-6 py-3  md:border border-gray-300 bg-transparent md:bg-[#ffffffac] w-50 rounded-full transition hover:bg-gray-200">
             <div className="flex center justify-center ">Learn More <HiOutlineArrowSmDown className="flex center justify-center mt-1.25 ml-1"/></div>
-          </a>
+          </ScrollLink>
           </div>
         </div>
         <div className="md:w-1/2 mt-10 md:mt-0 mr-30">
@@ -130,13 +119,13 @@ const HomeLandingPage = () => {
       </section>
 
       {/* Services Section */}
-      <section className="px-10  md:px-25 py-10  bg-gray-100 shadow-[0_-8px_20px_0_rgba(255,255,255,0.6)]" id="services">
+      <section className="  md:px-25 py-10  bg-gray-100 shadow-[0_-8px_20px_0_rgba(255,255,255,0.6)]" id="services">
         <h2 className="text-3xl md:text-4xl font-semibold text-purple-800 ">Our Services</h2>
-        <p className="mb-10 mt-5 text-gray-500">SafeSpace offers a range of mental health support services, powered by advanced AI technology and guided by professional therapists.</p>
+        <p className="mb-10 mt-5 text-gray-500 px-10 md:px-0">SafeSpace offers a range of mental health support services, powered by advanced AI technology and guided by professional therapists.</p>
         <div className="block md:flex center justify-center gap-6 md:grid-cols-3 mr-12 md:mx-20">
 
         {services.map((service, index) => (
-             <div key={index} className="bg-white p-6 rounded-3xl shadow-md hover:shadow-xl transition-shadow mb-10 md:mb-0">
+             <div key={index} className="bg-white md:ml-0 ml-10 p-6 rounded-3xl shadow-md hover:shadow-xl transition-shadow mb-10 md:mb-0">
               <div className="flex justify-around items-start flex-col">
                <div className="bg-purple-200 h-20 w-20 rounded-full text-3xl flex justify-center items-center mb-4 text-purple-800">{getIcon(service.icon)}</div>
               <h3 className="text-xl font-semibold text-black mb-4">{service.title}</h3>
